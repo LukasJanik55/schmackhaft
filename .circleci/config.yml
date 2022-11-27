@@ -19,23 +19,8 @@ jobs:
       - run:
         name: "Run build command"
         command: "npm run build"
-  build_and_test:
-    executor: node/default
-    steps:
-      - checkout
-      - node/install-packages:
-        pkg-manager: npm
-      - run:
-        name: "Run tests"
-        command: npm run test-unit
-      - run:
-        name: "Build app"
-        command: npm run build
 
 workflows:
   say-hello-workflow:
     jobs:
       - say-hello
-  test_my_app:
-    jobs:
-      - build_and_test
