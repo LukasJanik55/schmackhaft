@@ -26,10 +26,10 @@ jobs:
       - node/install-packages:
           pkg-manager: npm
       - run:
-          name: "Run tests"
+          name: "Running unit tests"
           command: npm run test-unit
       - run:
-          name: "Build app"
+          name: "Running build command"
           command: npm run build
 
 # Invoke jobs via workflows
