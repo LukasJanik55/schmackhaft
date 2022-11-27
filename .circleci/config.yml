@@ -17,14 +17,14 @@ jobs:
       - run:
           name: "Say hello"
           command: "echo Hello, World!"
-  build:
+  run-build:
     docker:
       - image: cimg/base:stable
     steps:
       - checkout
       - run:
-        name: "Say hello"
-        command: "npm run build"
+          name: "Run build command"
+          command: "npm run build"
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
@@ -34,4 +34,4 @@ workflows:
       - say-hello
   build-and-test:
     jobs:
-      - build
+      - run-build
