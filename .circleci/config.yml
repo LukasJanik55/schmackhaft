@@ -17,6 +17,18 @@ jobs:
       - run:
           name: "Hello"
           command: "echo Hello, World!!"
+  build_and_test:
+    executor: node/default
+    steps:
+      - checkout
+      - node/install-packages:
+          pkg-manager: npm
+      - run:
+          name: "Run tests"
+          command: npm run test-unit
+      - run:
+          name: "Build app"
+          command: npm run build
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
@@ -24,3 +36,6 @@ workflows:
   say-hello:
     jobs:
       - hello
+  test_my_app:
+    jobs:
+      - build_and_test
