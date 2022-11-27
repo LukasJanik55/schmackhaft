@@ -1,7 +1,7 @@
+import { Bookmark, TagState } from "../../../src/types";
 import { beforeEach, describe, expect, it } from "vitest";
 import { Link } from "../../../src/model/link";
 import { Links } from "../../../src/model/link-collection";
-import { TagState } from "../../../src/types";
 
 describe("unfiltered link-container", function () {
   let testCollection: Links;
@@ -217,5 +217,67 @@ describe("filtered link-container", function () {
     testCollection.reverseState("tag1");
     let result = testCollection.getState("tag1");
     expect(result).to.equal(TagState.NEUTRAL);
+  });
+});
+
+describe("my tests", function () {
+  let testCollection: Links;
+  let target: Bookmark;
+
+  beforeEach(function () {
+    testCollection = new Links([
+      new Link(
+        "http://example.com/1",
+        ["tag1", "unwanted-tag"],
+        "example-title-1",
+        "example-image-1",
+        "example-description-1"
+      ),
+      new Link(
+        "http://example.com/3",
+        ["tag3", "grouped-tag"],
+        "example-title-3",
+        "example-image-3",
+        "example-description-3"
+      ),
+      new Link(
+        "http://example.com/2",
+        ["tag2", "grouped-tag"],
+        "example-title-2",
+        "example-image-2",
+        "example-description-2"
+      ),
+    ]);
+    target = {
+      href: "http://example.com/1",
+      tags: ["tag1", "unwanted-tag"],
+      title: "example-title-1",
+      image: "example-image-1",
+      description: "example-description-1",
+    };
+  });
+
+  it("has an empty compString", () => {
+    const testLink = new Link("", ["tag1"]);
+    expect(testLink.compString).to.eql("");
+  });
+
+  it("has compString by title", () => {
+    const testLink = new Link("", ["tag1"], "example-title");
+    expect(testLink.compString).to.eql("example-title");
+  });
+
+  it("has compString by href", () => {
+    const testLink = new Link("http://example.com/", ["tag1"]);
+    expect(testLink.compString).to.eql("http://example.com/");
+  });
+
+  it("should return 0 when collection is empty", () => {
+    const testCollection = new Links();
+    expect(testCollection.isEmpty).to.true;
+  });
+
+  it("should return Link from index", () => {
+    expect(testCollection.getFromAll(2)).to.eql(testCollection.links[2]);
   });
 });
