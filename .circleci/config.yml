@@ -26,11 +26,11 @@ jobs:
       - node/install-packages:
         pkg-manager: npm
       - run:
+        name: "Run tests"
         command: npm run test-unit
-        name: Run tests
       - run:
+        name: "Build app"
         command: npm run build
-        name: Build app
 
 workflows:
   say-hello-workflow:
